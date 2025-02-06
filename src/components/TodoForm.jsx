@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../styled-components/StyledComponents";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const TodoForm = ({ setTodos }) => {
+  const [searchParams] = useSearchParams();
+  const queryId = parseInt(searchParams.get("id"), 10);
+  const navigate = useNavigate();
+
   const [userInput, setUserInput] = useState({
     category: "",
     content: "",
@@ -16,10 +21,31 @@ const TodoForm = ({ setTodos }) => {
 
   const handleAddUpdate = (e) => {
     e.preventDefault();
-    setTodos((prev) => [
-      ...prev,
-      { ...userInput, id: new Date().getTime(), type: false },
-    ]);
+
+    if (!queryId) {
+      setTodos((prev) => [
+        ...prev,
+        {
+          ...userInput,
+          id: new Date().getTime(),
+          type: false,
+          time: new Date(),
+        },
+      ]);
+    } else {
+      setTodos((prev) =>
+        [...prev].map((todo) => {
+          return todo.id === queryId
+            ? {
+                ...todo,
+                ...userInput,
+                type: todo.hasOwnProperty("type") ? todo.type : false,
+              }
+            : todo;
+        })
+      );
+      navigate("/");
+    }
 
     setUserInput({
       category: "",
@@ -35,14 +61,14 @@ const TodoForm = ({ setTodos }) => {
         <Select
           name="category"
           id="category"
-          value={setTodos.category}
+          value={userInput.category}
           onChange={handleChange}
         >
-          <option value="">습관</option>
-          <option value="">업무</option>
-          <option value="">공부</option>
-          <option value="">취미</option>
-          <option value="">기타</option>
+          <option value="habit">습관</option>
+          <option value="work">업무</option>
+          <option value="study">공부</option>
+          <option value="hobby">취미</option>
+          <option value="etc">기타</option>
         </Select>
 
         <label htmlFor="content">할 일</label>
@@ -62,7 +88,7 @@ const TodoForm = ({ setTodos }) => {
         />
 
         <Button $bgColor="#3182f6" $hoverBgColor="#0069fc">
-          추가
+          {queryId ? "수정" : "추가"}
         </Button>
       </Form>
     </TodoInputContainer>
@@ -105,7 +131,7 @@ const Select = styled.select`
   height: 30px;
   border-radius: 1rem;
   margin: 5px 0 1rem 0;
-  padding: 0 0 0 1rem;
+  padding: 0 2rem 0 1rem;
   border: 1px solid #acb5bd;
 
   &:hover {

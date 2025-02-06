@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
 import Todo from "../pages/Todo";
 import Layout from "../Layout";
+import TodoDetail from "../pages/TodoDetail";
 
 const Router = () => {
   const [todos, setTodos] = useState(
@@ -13,8 +14,6 @@ const Router = () => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
-  console.log(todos);
-
   return (
     <BrowserRouter>
       <Layout>
@@ -24,6 +23,7 @@ const Router = () => {
             path="/todo"
             element={<Todo todos={todos} setTodos={setTodos} />}
           />
+          <Route path="/detail" element={<TodoDetail todos={todos} />} />
         </Routes>
       </Layout>
     </BrowserRouter>

@@ -14,3 +14,8 @@ export const Button = styled.button`
     background-color: ${(props) => props.$hoverBgColor};
   }
 `;
+
+export const ButtonDiv = styled.div`
+  display: flex;
+  gap: 8px;
+`;
