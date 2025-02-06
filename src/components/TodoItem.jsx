@@ -31,12 +31,12 @@ const TodoItem = ({ todos, setTodos }) => {
             key={todo.id}
             onDoubleClick={() => navigate(`/?id=${todo.id}`)}
             onClick={(e) => {
-              // if (e.currentTarget !== e.target) return;
+              if (e.currentTarget !== e.target) return;
               navigate(`/detail?id=${todo.id}`);
             }}
           >
             <span>{todo.content}</span>
-            <ButtonDiv onClick={(e) => e.stopPropagation()}>
+            <ButtonDiv>
               <CheckBoxInput
                 type="checkbox"
                 checked={todo.type === true}
