@@ -9,10 +9,10 @@ const TodoForm = ({ setTodos }) => {
   const queryId = parseInt(searchParams.get("id"));
   const navigate = useNavigate();
 
+  /** 사용자 입력값 state */
   const [userInput, setUserInput] = useState({
     category: "",
     content: "",
-    date: "",
   });
 
   const handleChange = (e) => {
@@ -20,6 +20,7 @@ const TodoForm = ({ setTodos }) => {
     setUserInput({ ...userInput, [id]: value });
   };
 
+  /** 할 일 추가 or 수정 함수 */
   const handleAddUpdate = (e) => {
     e.preventDefault();
 
@@ -34,12 +35,12 @@ const TodoForm = ({ setTodos }) => {
           ...userInput,
           id: new Date().getTime(),
           type: false,
-          time: new Date(),
+          date: new Date(),
         },
       ]);
     } else {
       setTodos((prev) =>
-        [...prev].map((todo) => {
+        prev.map((todo) => {
           return todo.id === queryId
             ? {
                 ...todo,
@@ -55,7 +56,6 @@ const TodoForm = ({ setTodos }) => {
     setUserInput({
       category: "",
       content: "",
-      date: "",
     });
   };
 
@@ -70,6 +70,7 @@ const TodoForm = ({ setTodos }) => {
           value={userInput.category}
           onChange={handleChange}
         >
+          <option value="select">카테고리 선택</option>
           <option value="습관">습관</option>
           <option value="업무">업무</option>
           <option value="공부">공부</option>
@@ -82,14 +83,6 @@ const TodoForm = ({ setTodos }) => {
           type="text"
           id="content"
           value={userInput.content}
-          onChange={handleChange}
-        />
-
-        <label htmlFor="date">날짜</label>
-        <Input
-          type="date"
-          id="date"
-          value={userInput.date}
           onChange={handleChange}
         />
 

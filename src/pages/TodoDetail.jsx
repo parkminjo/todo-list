@@ -14,14 +14,8 @@ const TodoDetail = ({ todos, setTodos }) => {
   const queryId = parseInt(searchParams.get("id"));
 
   const detailTodo = todos.find((todo) => todo.id === queryId);
-  useEffect(() => {
-    if (!detailTodo) {
-      toast.error("할 일 목록과 일치하는 id가 없습니다");
-      return;
-    }
-  }, [detailTodo]);
 
-  const { id, category, content, date, time, type } = detailTodo;
+  const { id, category, content, date, type } = detailTodo;
 
   /** todo 삭제 함수 */
   const deleteTodo = (targetId) => {
@@ -38,6 +32,7 @@ const TodoDetail = ({ todos, setTodos }) => {
     );
   };
 
+  /** 할일 정보 페이지 UI */
   return (
     <TodoDetailContainer>
       <BackButton onClick={() => navigate("/todo")}>
@@ -46,8 +41,8 @@ const TodoDetail = ({ todos, setTodos }) => {
 
       <P>카테고리: {category}</P>
       <H1>{content}</H1>
-      <P>날짜: {date}</P>
-      {type && <P>종료 시간: {time.toLocaleString("ko-KR")}</P>}
+      <P>시작 시간: {date.toLocaleString("ko-KR", "UTC")}</P>
+      {type && <P>종료 시간: {new Date().toLocaleString("ko-KR", "UTC")}</P>}
 
       <ButtonDiv>
         <Button

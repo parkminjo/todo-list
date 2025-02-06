@@ -22,6 +22,7 @@ const TodoItem = ({ todos, setTodos }) => {
     );
   };
 
+  /** 할 일 카드 UI */
   return (
     <>
       {todos.map((todo) => {

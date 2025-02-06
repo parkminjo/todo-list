@@ -6,6 +6,7 @@ const TodoList = ({ todos, setTodos }) => {
   const incompleteTodos = [...todos].filter((todo) => todo.type === false);
   const completeTodos = [...todos].filter((todo) => todo.type === true);
 
+  /** 할 일 리스트 UI */
   return (
     <Container>
       <Div>

@@ -36,7 +36,7 @@ const NavContainer = styled.div`
   width: 300px;
   height: 100vh;
   background-color: white;
-  padding: 2rem;
+  padding: 4rem 2rem 3rem 2rem;
 `;
 
 const NavButton = styled.div`
@@ -45,7 +45,7 @@ const NavButton = styled.div`
   border-radius: 5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   width: 100%;
-  line-height: 40px;
+  line-height: 45px;
   text-align: center;
   margin-top: 1rem;
   cursor: pointer;
