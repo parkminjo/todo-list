@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { Button, ButtonDiv } from "../styled-components/StyledComponents";
-import { useNavigate, useSearchParams } from "react-router-dom";
 
-import { toast, ToastContainer } from "react-toastify";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ToastContainer } from "react-toastify";
 
 const TodoDetail = ({ todos, setTodos }) => {
   const navigate = useNavigate();
@@ -13,9 +13,16 @@ const TodoDetail = ({ todos, setTodos }) => {
   const [searchParams] = useSearchParams();
   const queryId = parseInt(searchParams.get("id"));
 
-  const detailTodo = todos.find((todo) => todo.id === queryId);
+  const detailTodo = todos.find((todo) => todo?.id === queryId) || {};
 
-  const { id, category, content, date, type } = detailTodo;
+  const {
+    id = null,
+    category = null,
+    content = null,
+    date = null,
+    type = null,
+    endDate = null,
+  } = detailTodo;
 
   /** todo 삭제 함수 */
   const deleteTodo = (targetId) => {
@@ -27,7 +34,9 @@ const TodoDetail = ({ todos, setTodos }) => {
   const changeTrueOrFalse = (targetId) => {
     setTodos((prev) =>
       prev.map((todo) => {
-        return todo.id === targetId ? { ...todo, type: !todo.type } : todo;
+        return todo.id === targetId
+          ? { ...todo, type: !todo.type, endDate: new Date() }
+          : todo;
       })
     );
   };
@@ -41,8 +50,11 @@ const TodoDetail = ({ todos, setTodos }) => {
 
       <P>카테고리: {category}</P>
       <H1>{content}</H1>
-      <P>시작 시간: {date.toLocaleString("ko-KR", "UTC")}</P>
-      {type && <P>종료 시간: {new Date().toLocaleString("ko-KR", "UTC")}</P>}
+
+      <P>시작 시간: {new Date(date)?.toLocaleString("ko-KR", "UTC")}</P>
+      {type && (
+        <P>종료 시간: {new Date(endDate).toLocaleString("ko-KR", "UTC")}</P>
+      )}
 
       <ButtonDiv>
         <Button
