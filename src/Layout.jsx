@@ -23,8 +23,8 @@ const Nav = () => {
   return (
     <NavContainer>
       <h1>TODO</h1>
-      <Button onClick={() => navigate("/")}>HOME</Button>
-      <Button onClick={() => navigate("/todo")}>TodoList</Button>
+      <NavButton onClick={() => navigate("/")}>Todo 입력</NavButton>
+      <NavButton onClick={() => navigate("/todo")}>TodoList</NavButton>
     </NavContainer>
   );
 };
@@ -39,7 +39,7 @@ const NavContainer = styled.div`
   padding: 2rem;
 `;
 
-const Button = styled.div`
+const NavButton = styled.div`
   width: auto;
   border: none;
   border-radius: 5rem;
@@ -47,8 +47,9 @@ const Button = styled.div`
   width: 100%;
   line-height: 40px;
   text-align: center;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
   cursor: pointer;
+
   &:hover {
     background-color: #3182f6;
     color: white;
@@ -59,7 +60,6 @@ const ChildrenStyles = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: "#F3F4F7";
+  background-color: #f3f4f7;
   width: 100%;
-  padding: 20px;
 `;

@@ -1,7 +1,12 @@
 import React from "react";
+import TodoList from "../components/TodoList";
 
-const Todo = () => {
-  return <div>Todo</div>;
+const Todo = ({ todos, setTodos }) => {
+  return (
+    <>
+      <TodoList todos={todos} setTodos={setTodos} />
+    </>
+  );
 };
 
 export default Todo;
