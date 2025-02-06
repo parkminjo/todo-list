@@ -23,7 +23,10 @@ const Router = () => {
             path="/todo"
             element={<Todo todos={todos} setTodos={setTodos} />}
           />
-          <Route path="/detail" element={<TodoDetail todos={todos} />} />
+          <Route
+            path="/detail"
+            element={<TodoDetail todos={todos} setTodos={setTodos} />}
+          />
         </Routes>
       </Layout>
     </BrowserRouter>

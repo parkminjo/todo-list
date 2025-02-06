@@ -2,17 +2,21 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ButtonDiv } from "../styled-components/StyledComponents";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const TodoItem = ({ todos, setTodos }) => {
   const navigate = useNavigate();
 
+  /** todo 삭제 함수 */
   const deleteTodo = (targetId) => {
-    setTodos((prev) => [...prev].filter((todo) => todo.id !== targetId));
+    setTodos((prev) => prev.filter((todo) => todo.id !== targetId));
   };
 
-  const changeType = (targetId) => {
+  /** 완료 여부 변환 함수 */
+  const changeTrueOrFalse = (targetId) => {
     setTodos((prev) =>
-      [...prev].map((todo) => {
+      prev.map((todo) => {
         return todo.id === targetId ? { ...todo, type: !todo.type } : todo;
       })
     );
@@ -36,12 +40,12 @@ const TodoItem = ({ todos, setTodos }) => {
                 type="checkbox"
                 checked={todo.type === true}
                 onChange={(e) => {
-                  changeType(todo.id);
+                  changeTrueOrFalse(todo.id);
                 }}
               />
 
               <DeleteButton onClick={() => deleteTodo(todo.id)}>
-                🗑️
+                <FontAwesomeIcon icon={faTrash} />
               </DeleteButton>
             </ButtonDiv>
           </TodoCard>
@@ -81,4 +85,9 @@ const DeleteButton = styled.button`
   background-color: transparent;
   border: none;
   font-size: 16px;
+  color: #777777;
+
+  &:hover {
+    color: #515151;
+  }
 `;

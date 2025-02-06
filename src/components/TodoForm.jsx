@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../styled-components/StyledComponents";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 const TodoForm = ({ setTodos }) => {
   const [searchParams] = useSearchParams();
-  const queryId = parseInt(searchParams.get("id"), 10);
+  const queryId = parseInt(searchParams.get("id"));
   const navigate = useNavigate();
 
   const [userInput, setUserInput] = useState({
@@ -22,6 +23,10 @@ const TodoForm = ({ setTodos }) => {
   const handleAddUpdate = (e) => {
     e.preventDefault();
 
+    if (userInput.category === "" || userInput.content === "") {
+      toast.error("값을 모두 입력해주세요");
+      return;
+    }
     if (!queryId) {
       setTodos((prev) => [
         ...prev,
@@ -54,6 +59,7 @@ const TodoForm = ({ setTodos }) => {
     });
   };
 
+  /** 입력창 UI */
   return (
     <TodoInputContainer>
       <Form onSubmit={handleAddUpdate}>
@@ -64,11 +70,11 @@ const TodoForm = ({ setTodos }) => {
           value={userInput.category}
           onChange={handleChange}
         >
-          <option value="habit">습관</option>
-          <option value="work">업무</option>
-          <option value="study">공부</option>
-          <option value="hobby">취미</option>
-          <option value="etc">기타</option>
+          <option value="습관">습관</option>
+          <option value="업무">업무</option>
+          <option value="공부">공부</option>
+          <option value="취미">취미</option>
+          <option value="기타">기타</option>
         </Select>
 
         <label htmlFor="content">할 일</label>
@@ -90,6 +96,7 @@ const TodoForm = ({ setTodos }) => {
         <Button $bgColor="#3182f6" $hoverBgColor="#0069fc">
           {queryId ? "수정" : "추가"}
         </Button>
+        <ToastContainer autoClose={1000} />
       </Form>
     </TodoInputContainer>
   );
