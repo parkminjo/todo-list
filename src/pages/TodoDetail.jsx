@@ -6,7 +6,7 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ToastContainer } from "react-toastify";
 
-import { Button, ButtonBox } from "../styled-components/CommonStyle";
+import { Button, ButtonBox } from "../styled-components/global/CommonStyle";
 
 const TodoDetail = ({ todos, setTodos }) => {
   const navigate = useNavigate();

@@ -4,7 +4,7 @@ import Home from "../pages/Home";
 import Todo from "../pages/Todo";
 import TodoDetail from "../pages/TodoDetail";
 import Layout from "../layout/Layout";
-import GlobalStyle from "../styled-components/GlobalStyle";
+import GlobalStyle from "../styled-components/global/GlobalStyle";
 
 const Router = () => {
   const [todos, setTodos] = useState(

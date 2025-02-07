@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import styled from "styled-components";
-import { Button } from "../styled-components/CommonStyle";
+
+import { Button } from "../styled-components/global/CommonStyle";
+import { TodoFormStyle as S } from "../styled-components/general/TodoFormStyle";
 
 const TodoForm = ({ setTodos }) => {
   const [searchParams] = useSearchParams();
@@ -61,10 +62,10 @@ const TodoForm = ({ setTodos }) => {
 
   /** 입력창 UI */
   return (
-    <TodoInputContainer>
-      <Form onSubmit={handleAddUpdate}>
+    <S.TodoInputContainer>
+      <S.Form onSubmit={handleAddUpdate}>
         <label htmlFor="category">카테고리</label>
-        <Select
+        <S.Category
           name="category"
           id="category"
           value={userInput.category}
@@ -76,10 +77,10 @@ const TodoForm = ({ setTodos }) => {
           <option value="공부">공부</option>
           <option value="취미">취미</option>
           <option value="기타">기타</option>
-        </Select>
+        </S.Category>
 
         <label htmlFor="content">할 일</label>
-        <Input
+        <S.ContentInput
           type="text"
           id="content"
           value={userInput.content}
@@ -89,52 +90,10 @@ const TodoForm = ({ setTodos }) => {
         <Button $bgColor="#3182f6" $hoverBgColor="#0069fc">
           {queryId ? "수정" : "추가"}
         </Button>
-      </Form>
+      </S.Form>
       <ToastContainer autoClose={1000} />
-    </TodoInputContainer>
+    </S.TodoInputContainer>
   );
 };
 
 export default TodoForm;
-
-const TodoInputContainer = styled.div`
-  width: 500px;
-  height: 400px;
-  background-color: white;
-  border-radius: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Input = styled.input`
-  width: 200px;
-  height: 30px;
-  border-radius: 1rem;
-  margin: 5px 0 1rem 0;
-  padding: 0 1rem 0 1rem;
-  border: 1px solid #acb5bd;
-
-  &:hover {
-    border: 1px solid #7d8489;
-  }
-`;
-
-const Select = styled.select`
-  width: 200px;
-  height: 30px;
-  border-radius: 1rem;
-  margin: 5px 0 1rem 0;
-  padding: 0 2rem 0 1rem;
-  border: 1px solid #acb5bd;
-
-  &:hover {
-    border: 1px solid #7d8489;
-  }
-`;

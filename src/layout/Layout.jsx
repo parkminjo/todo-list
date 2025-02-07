@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { LayoutStyle as S } from "./LayoutStyle";
-import { TitleText } from "../styled-components/CommonStyle";
+import { TitleText } from "../styled-components/global/CommonStyle";
 
 const Layout = ({ children }) => {
   return (

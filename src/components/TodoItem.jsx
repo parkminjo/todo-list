@@ -3,7 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { ButtonBox, ContentText } from "../styled-components/CommonStyle";
+import {
+  ButtonBox,
+  ContentText,
+} from "../styled-components/global/CommonStyle";
 
 const TodoItem = ({ todos, setTodos }) => {
   const navigate = useNavigate();
