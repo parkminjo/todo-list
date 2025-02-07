@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import { Button } from "../styled-components/StyledComponents";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import styled from "styled-components";
+import { Button } from "../styled-components/CommonStyle";
 
 const TodoForm = ({ setTodos }) => {
   const [searchParams] = useSearchParams();
@@ -89,8 +89,8 @@ const TodoForm = ({ setTodos }) => {
         <Button $bgColor="#3182f6" $hoverBgColor="#0069fc">
           {queryId ? "수정" : "추가"}
         </Button>
-        <ToastContainer autoClose={1000} />
       </Form>
+      <ToastContainer autoClose={1000} />
     </TodoInputContainer>
   );
 };

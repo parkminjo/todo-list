@@ -37,8 +37,8 @@ const Div = styled.div`
 `;
 
 const TodoListContainer = styled.div`
-  width: 350px;
-  min-height: 450px;
+  width: 400px;
+  min-height: 600px;
   background-color: white;
   border-radius: 1rem;
   margin-top: 10px;

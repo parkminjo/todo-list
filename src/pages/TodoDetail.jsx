@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
-import { Button, ButtonDiv } from "../styled-components/StyledComponents";
 
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ToastContainer } from "react-toastify";
+
+import { Button, ButtonBox } from "../styled-components/CommonStyle";
 
 const TodoDetail = ({ todos, setTodos }) => {
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ const TodoDetail = ({ todos, setTodos }) => {
         <P>종료 시간: {new Date(endDate).toLocaleString("ko-KR", "UTC")}</P>
       )}
 
-      <ButtonDiv>
+      <ButtonBox>
         <Button
           $bgColor="#F95454"
           $hoverBgColor="#f43232"
@@ -71,7 +72,7 @@ const TodoDetail = ({ todos, setTodos }) => {
         >
           {type ? "취소" : "완료"}
         </Button>
-      </ButtonDiv>
+      </ButtonBox>
       <ToastContainer />
     </TodoDetailContainer>
   );

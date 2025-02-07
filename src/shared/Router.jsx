@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
 import Todo from "../pages/Todo";
-import Layout from "../Layout";
 import TodoDetail from "../pages/TodoDetail";
+import Layout from "../layout/Layout";
+import GlobalStyle from "../styled-components/GlobalStyle";
 
 const Router = () => {
   const [todos, setTodos] = useState(
@@ -16,6 +17,7 @@ const Router = () => {
 
   return (
     <BrowserRouter>
+      <GlobalStyle />
       <Layout>
         <Routes>
           <Route path="/" element={<Home setTodos={setTodos} />} />

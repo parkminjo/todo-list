@@ -1,9 +1,9 @@
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { ButtonDiv } from "../styled-components/StyledComponents";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { ButtonBox, ContentText } from "../styled-components/CommonStyle";
 
 const TodoItem = ({ todos, setTodos }) => {
   const navigate = useNavigate();
@@ -35,8 +35,8 @@ const TodoItem = ({ todos, setTodos }) => {
               navigate(`/detail?id=${todo.id}`);
             }}
           >
-            <span>{todo.content}</span>
-            <ButtonDiv>
+            <ContentText $fontWeight="500">{todo.content}</ContentText>
+            <ButtonBox>
               <CheckBoxInput
                 type="checkbox"
                 checked={todo.type === true}
@@ -48,7 +48,7 @@ const TodoItem = ({ todos, setTodos }) => {
               <DeleteButton onClick={() => deleteTodo(todo.id)}>
                 <FontAwesomeIcon icon={faTrash} />
               </DeleteButton>
-            </ButtonDiv>
+            </ButtonBox>
           </TodoCard>
         );
       })}
@@ -59,8 +59,8 @@ const TodoItem = ({ todos, setTodos }) => {
 export default TodoItem;
 
 const TodoCard = styled.div`
-  width: 250px;
-  line-height: 30px;
+  width: 300px;
+  line-height: 40px;
   text-align: left;
   border-radius: 10px;
   padding: 5px 1rem;
