@@ -2,11 +2,12 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+
 import {
   ButtonBox,
   ContentText,
 } from "../styled-components/global/CommonStyle";
+import { TodoItemStyle as S } from "../styled-components/general/TodoItemStyle";
 
 const TodoItem = ({ todos, setTodos }) => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const TodoItem = ({ todos, setTodos }) => {
     <>
       {todos.map((todo) => {
         return (
-          <TodoCard
+          <S.TodoCardBox
             key={todo.id}
             onDoubleClick={() => navigate(`/?id=${todo.id}`)}
             onClick={(e) => {
@@ -40,7 +41,7 @@ const TodoItem = ({ todos, setTodos }) => {
           >
             <ContentText $fontWeight="500">{todo.content}</ContentText>
             <ButtonBox>
-              <CheckBoxInput
+              <S.CheckBoxInput
                 type="checkbox"
                 checked={todo.type === true}
                 onChange={(e) => {
@@ -48,11 +49,11 @@ const TodoItem = ({ todos, setTodos }) => {
                 }}
               />
 
-              <DeleteButton onClick={() => deleteTodo(todo.id)}>
+              <S.DeleteButton onClick={() => deleteTodo(todo.id)}>
                 <FontAwesomeIcon icon={faTrash} />
-              </DeleteButton>
+              </S.DeleteButton>
             </ButtonBox>
-          </TodoCard>
+          </S.TodoCardBox>
         );
       })}
     </>
@@ -60,38 +61,3 @@ const TodoItem = ({ todos, setTodos }) => {
 };
 
 export default TodoItem;
-
-const TodoCard = styled.div`
-  width: 300px;
-  line-height: 40px;
-  text-align: left;
-  border-radius: 10px;
-  padding: 5px 1rem;
-  margin-bottom: 1rem;
-  background-color: #f3f4f7;
-
-  display: flex;
-  justify-content: space-between;
-
-  &:hover {
-    transform: scale(1.05);
-    transition: all 0.2s ease-in-out;
-  }
-`;
-
-const CheckBoxInput = styled.input`
-  width: 16px;
-  border: 1px solid #c5cdd5;
-  background-color: transparent;
-`;
-
-const DeleteButton = styled.button`
-  background-color: transparent;
-  border: none;
-  font-size: 16px;
-  color: #777777;
-
-  &:hover {
-    color: #f85453;
-  }
-`;
