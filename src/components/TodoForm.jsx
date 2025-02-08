@@ -58,6 +58,7 @@ const TodoForm = () => {
           userInput,
         })
       );
+      navigate(-1);
     }
 
     setUserInput({
@@ -70,7 +71,7 @@ const TodoForm = () => {
   return (
     <S.TodoInputContainer>
       <BackButton>
-        <FontAwesomeIcon icon={faX} onClick={() => navigate(-1)} />
+        <FontAwesomeIcon icon={faX} onClick={() => navigate("/")} />
       </BackButton>
       <S.Form onSubmit={handleSubmit}>
         <label htmlFor="category">카테고리</label>
@@ -97,11 +98,7 @@ const TodoForm = () => {
           onChange={handleChange}
         />
 
-        <Button
-          $bgColor="#3182f6"
-          $hoverBgColor="#0069fc"
-          onClick={() => navigate(-1)}
-        >
+        <Button $bgColor="#3182f6" $hoverBgColor="#0069fc">
           {queryId ? "수정" : "추가"}
         </Button>
       </S.Form>
