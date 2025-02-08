@@ -21,7 +21,9 @@ const TodoList = () => {
       </S.TodoListContainer>
 
       <S.TodoListContainer>
-        <TitleText>Done</TitleText>
+        <TitleText $fontWeight="500" $marginBottom="20px">
+          Done
+        </TitleText>
         <TodoItem todos={completeTodos} />
       </S.TodoListContainer>
     </S.Container>

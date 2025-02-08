@@ -12,11 +12,14 @@ import {
   TitleText,
 } from "../styled-components/global/CommonStyle";
 import { TodoDetailStyle as S } from "../styled-components/general/TodoDetailStyle";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { changeBoolean, deleteTodo } from "../redux/TodosSlice";
 
 const TodoDetail = () => {
   const todos = useSelector((state) => state.todos);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [searchParams] = useSearchParams();
   const queryId = parseInt(searchParams.get("id"));
@@ -32,27 +35,10 @@ const TodoDetail = () => {
     endDate = null,
   } = detailTodo;
 
-  /** todo 삭제 함수 */
-  const deleteTodo = (targetId) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== targetId));
-    navigate("/todo");
-  };
-
-  /** 완료 여부 변환 함수 */
-  const changeTrueOrFalse = (targetId) => {
-    setTodos((prev) =>
-      prev.map((todo) => {
-        return todo.id === targetId
-          ? { ...todo, type: !todo.type, endDate: new Date() }
-          : todo;
-      })
-    );
-  };
-
   /** 할일 정보 페이지 UI */
   return (
     <S.TodoDetailContainer>
-      <S.BackButton onClick={() => navigate("/todo")}>
+      <S.BackButton onClick={() => navigate(-1)}>
         <FontAwesomeIcon icon={faX} />
       </S.BackButton>
 
@@ -73,7 +59,7 @@ const TodoDetail = () => {
           $bgColor="#F95454"
           $hoverBgColor="#f43232"
           onClick={() => {
-            deleteTodo(id);
+            dispatch(deleteTodo(id));
             navigate(-1);
           }}
         >
@@ -82,7 +68,7 @@ const TodoDetail = () => {
         <Button
           $bgColor="#FCCD2A"
           $hoverBgColor="#e8b80a"
-          onClick={() => changeTrueOrFalse(id)}
+          onClick={() => dispatch(changeBoolean(id))}
         >
           {type ? "취소" : "완료"}
         </Button>

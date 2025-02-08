@@ -15,7 +15,7 @@ const TodosSlice = createSlice({
     changeBoolean: (state, action) => {
       return state.map((todo) => {
         return todo.id === action.payload
-          ? { ...todo, type: !todo.type }
+          ? { ...todo, type: !todo.type, endDate: new Date().toISOString() }
           : todo;
       });
     },
