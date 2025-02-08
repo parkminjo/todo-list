@@ -12,7 +12,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 const TodoForm = () => {
   const [searchParams] = useSearchParams();
-  const queryId = searchParams.get("id");
+  const queryId = parseInt(searchParams.get("id"));
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ const TodoForm = () => {
     } else {
       dispatch(
         updateTodo({
-          queryId,
+          id: queryId,
           userInput,
         })
       );

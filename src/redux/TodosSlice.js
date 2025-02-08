@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = JSON.parse(localStorage.getItem("todos")) || [];
+const initialState = JSON.parse(localStorage.getItem("todos")) ?? [];
 
 const TodosSlice = createSlice({
   name: "todos",
@@ -13,11 +13,14 @@ const TodosSlice = createSlice({
       return state.filter((todo) => todo.id !== action.payload);
     },
     updateTodo: (state, action) => {
+      const { id, userInput } = action.payload;
+
       return state.map((todo) =>
-        todo.id === action.payload.id
+        todo.id === id
           ? {
               ...todo,
-              ...action.payload.userInput,
+              ...userInput,
+              type: todo.type ?? false,
               date: new Date().toISOString(),
             }
           : todo
