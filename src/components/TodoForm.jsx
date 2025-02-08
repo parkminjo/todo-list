@@ -19,6 +19,7 @@ const TodoForm = ({ setTodos }) => {
   const handleChange = (e) => {
     const { id, value } = e.target;
     setUserInput({ ...userInput, [id]: value });
+    console.log(id);
   };
 
   /** 할 일 추가 or 수정 함수 */
