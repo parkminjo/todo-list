@@ -41,30 +41,34 @@ const TodoForm = () => {
       return;
     }
 
-    /** 할 일 추가 */
-    if (!queryId) {
-      dispatch(
-        addTodo({
-          ...userInput,
-          id: new Date().getTime(),
-          date: new Date().toISOString(),
-          type: false,
-        })
-      );
-    } else {
-      dispatch(
-        updateTodo({
-          id: queryId,
-          userInput,
-        })
-      );
-      navigate(-1);
-    }
+    !queryId ? handleAddTodo() : handleUpdateTodo();
 
     setUserInput({
       category: "select",
       content: "",
     });
+  };
+
+  /** 할 일 추가 */
+  const handleAddTodo = () => {
+    dispatch(
+      addTodo({
+        ...userInput,
+        id: new Date().getTime(),
+        date: new Date().toISOString(),
+        type: false,
+      })
+    );
+  };
+  /** 할 일 수정 */
+  const handleUpdateTodo = () => {
+    dispatch(
+      updateTodo({
+        id: queryId,
+        userInput,
+      })
+    );
+    navigate(-1);
   };
 
   /** 입력창 UI */

@@ -10,12 +10,13 @@ const TodosSlice = createSlice({
       state.push(action.payload);
     },
     deleteTodo: (state, action) => {
-      return state.filter((todo) => todo.id !== action.payload);
+      const filteredTodos = state.filter((todo) => todo.id !== action.payload);
+      return filteredTodos;
     },
     updateTodo: (state, action) => {
       const { id, userInput } = action.payload;
 
-      return state.map((todo) =>
+      const updatedTodos = state.map((todo) =>
         todo.id === id
           ? {
               ...todo,
@@ -25,13 +26,17 @@ const TodosSlice = createSlice({
             }
           : todo
       );
+
+      return updatedTodos;
     },
     changeBoolean: (state, action) => {
-      return state.map((todo) => {
+      const toggledTodos = state.map((todo) => {
         return todo.id === action.payload
           ? { ...todo, type: !todo.type, endDate: new Date().toISOString() }
           : todo;
       });
+
+      return toggledTodos;
     },
   },
 });
