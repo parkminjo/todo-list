@@ -24,16 +24,8 @@ const TodoDetail = () => {
   const [searchParams] = useSearchParams();
   const queryId = parseInt(searchParams.get("id"));
 
-  const detailTodo = todos.find((todo) => todo?.id === queryId) || {};
-
-  const {
-    id = null,
-    category = null,
-    content = null,
-    date = null,
-    type = null,
-    endDate = null,
-  } = detailTodo;
+  const { id, category, content, date, endDate, type } =
+    todos.find((todo) => todo?.id === queryId) || {};
 
   /** 할일 정보 페이지 UI */
   return (
@@ -42,7 +34,7 @@ const TodoDetail = () => {
         <FontAwesomeIcon icon={faX} />
       </S.BackButton>
 
-      <ContentText $marginBottom="10px">카테고리: {category}</ContentText>
+      <ContentText $marginBottom="10px">{category}</ContentText>
       <TitleText $marginBottom="20px">{content}</TitleText>
 
       <ContentText $marginBottom="10px">
