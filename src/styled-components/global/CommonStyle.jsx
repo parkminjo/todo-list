@@ -17,7 +17,7 @@ export const Button = styled.button`
 
 export const ButtonBox = styled.div`
   display: flex;
-  gap: 5px;
+  gap: ${(props) => props.$gap || "5px"};
 `;
 
 export const TitleText = styled.h1`

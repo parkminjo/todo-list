@@ -40,7 +40,7 @@ const TodoItem = ({ todos, setTodos }) => {
             }}
           >
             <ContentText $fontWeight="500">{todo.content}</ContentText>
-            <ButtonBox>
+            <ButtonBox $gap="0">
               <S.CheckBoxInput
                 type="checkbox"
                 checked={todo.type === true}
