@@ -12,8 +12,10 @@ import {
   TitleText,
 } from "../styled-components/global/CommonStyle";
 import { TodoDetailStyle as S } from "../styled-components/general/TodoDetailStyle";
+import { useSelector } from "react-redux";
 
-const TodoDetail = ({ todos, setTodos }) => {
+const TodoDetail = () => {
+  const todos = useSelector((state) => state.todos);
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();

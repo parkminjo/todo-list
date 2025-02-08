@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../redux/TodosSlice";
 
-import { Button } from "../styled-components/global/CommonStyle";
 import { TodoFormStyle as S } from "../styled-components/general/TodoFormStyle";
+import { Button } from "../styled-components/global/CommonStyle";
 
-const TodoForm = ({ setTodos }) => {
-  const [searchParams] = useSearchParams();
-  const queryId = parseInt(searchParams.get("id"));
-  const navigate = useNavigate();
+const TodoForm = () => {
+  const dispatch = useDispatch();
 
   /** 사용자 입력값 state */
   const [userInput, setUserInput] = useState({
-    category: "",
+    category: "select",
     content: "",
   });
 
@@ -21,41 +20,31 @@ const TodoForm = ({ setTodos }) => {
     setUserInput({ ...userInput, [id]: value });
   };
 
-  /** 할 일 추가 or 수정 함수 */
-  const handleAddUpdate = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (userInput.category === "" || userInput.content === "") {
-      toast.error("값을 모두 입력해주세요");
+    /** 유효성 검증 */
+    if (!userInput.category || userInput.category === "select") {
+      toast.error("카테고리를 선택해주세요");
       return;
     }
-    if (!queryId) {
-      setTodos((prev) => [
-        ...prev,
-        {
-          ...userInput,
-          id: new Date().getTime(),
-          type: false,
-          date: new Date(),
-        },
-      ]);
-    } else {
-      setTodos((prev) =>
-        prev.map((todo) => {
-          return todo.id === queryId
-            ? {
-                ...todo,
-                ...userInput,
-                type: todo.hasOwnProperty("type") ? todo.type : false,
-              }
-            : todo;
-        })
-      );
-      navigate("/");
+    if (!userInput.content.trim()) {
+      toast.error("할 일을 입력해주세요");
+      return;
     }
 
+    /** 할 일 추가 */
+    dispatch(
+      addTodo({
+        ...userInput,
+        id: new Date().getTime(),
+        date: new Date().toISOString(),
+        type: false,
+      })
+    );
+
     setUserInput({
-      category: "",
+      category: "select",
       content: "",
     });
   };
@@ -63,7 +52,7 @@ const TodoForm = ({ setTodos }) => {
   /** 입력창 UI */
   return (
     <S.TodoInputContainer>
-      <S.Form onSubmit={handleAddUpdate}>
+      <S.Form onSubmit={handleSubmit}>
         <label htmlFor="category">카테고리</label>
         <S.Category
           name="category"
@@ -88,7 +77,7 @@ const TodoForm = ({ setTodos }) => {
         />
 
         <Button $bgColor="#3182f6" $hoverBgColor="#0069fc">
-          {queryId ? "수정" : "추가"}
+          추가
         </Button>
       </S.Form>
       <ToastContainer autoClose={1000} />

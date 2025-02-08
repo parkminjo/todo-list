@@ -2,6 +2,8 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { changeBoolean, deleteTodo } from "../redux/TodosSlice";
 
 import {
   ButtonBox,
@@ -9,22 +11,9 @@ import {
 } from "../styled-components/global/CommonStyle";
 import { TodoItemStyle as S } from "../styled-components/general/TodoItemStyle";
 
-const TodoItem = ({ todos, setTodos }) => {
+const TodoItem = ({ todos }) => {
   const navigate = useNavigate();
-
-  /** todo 삭제 함수 */
-  const deleteTodo = (targetId) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== targetId));
-  };
-
-  /** 완료 여부 변환 함수 */
-  const changeTrueOrFalse = (targetId) => {
-    setTodos((prev) =>
-      prev.map((todo) => {
-        return todo.id === targetId ? { ...todo, type: !todo.type } : todo;
-      })
-    );
-  };
+  const dispatch = useDispatch();
 
   /** 할 일 카드 UI */
   return (
@@ -43,13 +32,13 @@ const TodoItem = ({ todos, setTodos }) => {
             <ButtonBox $gap="0">
               <S.CheckBoxInput
                 type="checkbox"
-                checked={todo.type === true}
-                onChange={(e) => {
-                  changeTrueOrFalse(todo.id);
+                checked={todo.type}
+                onChange={() => {
+                  dispatch(changeBoolean(todo.id));
                 }}
               />
 
-              <S.DeleteButton onClick={() => deleteTodo(todo.id)}>
+              <S.DeleteButton onClick={() => dispatch(deleteTodo(todo.id))}>
                 <FontAwesomeIcon icon={faTrash} />
               </S.DeleteButton>
             </ButtonBox>

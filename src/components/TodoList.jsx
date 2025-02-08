@@ -2,10 +2,13 @@ import React from "react";
 import TodoItem from "./TodoItem";
 import { TodoListStyle as S } from "../styled-components/general/TodoListStyle";
 import { TitleText } from "../styled-components/global/CommonStyle";
+import { useSelector } from "react-redux";
 
-const TodoList = ({ todos, setTodos }) => {
-  const incompleteTodos = [...todos].filter((todo) => todo.type === false);
-  const completeTodos = [...todos].filter((todo) => todo.type === true);
+const TodoList = () => {
+  const todos = useSelector((state) => state.todos);
+
+  const incompleteTodos = todos.filter((todo) => todo.type === false);
+  const completeTodos = todos.filter((todo) => todo.type);
 
   /** 할 일 리스트 UI */
   return (
@@ -14,11 +17,12 @@ const TodoList = ({ todos, setTodos }) => {
         <TitleText $fontWeight="500" $marginBottom="20px">
           Doing
         </TitleText>
-        <TodoItem todos={incompleteTodos} setTodos={setTodos} />
+        <TodoItem todos={incompleteTodos} />
       </S.TodoListContainer>
+
       <S.TodoListContainer>
         <TitleText>Done</TitleText>
-        <TodoItem todos={completeTodos} setTodos={setTodos} />
+        <TodoItem todos={completeTodos} />
       </S.TodoListContainer>
     </S.Container>
   );
