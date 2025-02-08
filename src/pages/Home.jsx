@@ -1,10 +1,10 @@
 import React from "react";
 import TodoForm from "../components/TodoForm";
 
-const Home = ({ setTodos }) => {
+const Home = () => {
   return (
     <div>
-      <TodoForm setTodos={setTodos} />
+      <TodoForm />
     </div>
   );
 };

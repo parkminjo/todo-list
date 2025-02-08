@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import TodoItem from "./TodoItem";
+import { TodoContext } from "../context/TodoContext";
+
 import { TodoListStyle as S } from "../styled-components/general/TodoListStyle";
 import { TitleText } from "../styled-components/global/CommonStyle";
 
-const TodoList = ({ todos, setTodos }) => {
+const TodoList = () => {
+  const { todos } = useContext(TodoContext);
+
   const incompleteTodos = [...todos].filter((todo) => todo.type === false);
   const completeTodos = [...todos].filter((todo) => todo.type === true);
 
@@ -14,11 +18,13 @@ const TodoList = ({ todos, setTodos }) => {
         <TitleText $fontWeight="500" $marginBottom="20px">
           Doing
         </TitleText>
-        <TodoItem todos={incompleteTodos} setTodos={setTodos} />
+        <TodoItem todos={incompleteTodos} />
       </S.TodoListContainer>
       <S.TodoListContainer>
-        <TitleText>Done</TitleText>
-        <TodoItem todos={completeTodos} setTodos={setTodos} />
+        <TitleText $fontWeight="500" $marginBottom="20px">
+          Done
+        </TitleText>
+        <TodoItem todos={completeTodos} />
       </S.TodoListContainer>
     </S.Container>
   );

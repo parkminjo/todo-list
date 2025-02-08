@@ -15,15 +15,9 @@ const Router = () => {
       <Layout>
         <TodoProvider>
           <Routes>
-            <Route path="/" element={<Home setTodos={setTodos} />} />
-            <Route
-              path="/todo"
-              element={<Todo todos={todos} setTodos={setTodos} />}
-            />
-            <Route
-              path="/detail"
-              element={<TodoDetail todos={todos} setTodos={setTodos} />}
-            />
+            <Route path="/" element={<Home />} />
+            <Route path="/todo" element={<Todo />} />
+            <Route path="/detail" element={<TodoDetail />} />
           </Routes>
         </TodoProvider>
       </Layout>

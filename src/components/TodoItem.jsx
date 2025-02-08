@@ -1,30 +1,19 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { TodoContext } from "../context/TodoContext";
 
 import {
   ButtonBox,
   ContentText,
 } from "../styled-components/global/CommonStyle";
+
 import { TodoItemStyle as S } from "../styled-components/general/TodoItemStyle";
 
-const TodoItem = ({ todos, setTodos }) => {
+const TodoItem = ({ todos }) => {
   const navigate = useNavigate();
-
-  /** todo 삭제 함수 */
-  const deleteTodo = (targetId) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== targetId));
-  };
-
-  /** 완료 여부 변환 함수 */
-  const changeTrueOrFalse = (targetId) => {
-    setTodos((prev) =>
-      prev.map((todo) => {
-        return todo.id === targetId ? { ...todo, type: !todo.type } : todo;
-      })
-    );
-  };
+  const { deleteTodo, changeTrueOrFalse } = useContext(TodoContext);
 
   /** 할 일 카드 UI */
   return (

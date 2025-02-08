@@ -1,19 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import styled from "styled-components";
 
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ToastContainer } from "react-toastify";
 
-import { Button, ButtonBox } from "../styled-components/global/CommonStyle";
+import {
+  Button,
+  ButtonBox,
+  ContentText,
+  TitleText,
+} from "../styled-components/global/CommonStyle";
+import { TodoContext } from "../context/TodoContext";
+import { TodoDetailStyle as S } from "../styled-components/general/TodoDetailStyle";
 
-const TodoDetail = ({ todos, setTodos }) => {
+const TodoDetail = () => {
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
   const queryId = parseInt(searchParams.get("id"));
 
+  const { todos, deleteTodo, changeTrueOrFalse } = useContext(TodoContext);
   const detailTodo = todos.find((todo) => todo?.id === queryId) || {};
 
   const {
@@ -25,43 +32,33 @@ const TodoDetail = ({ todos, setTodos }) => {
     endDate = null,
   } = detailTodo;
 
-  /** todo 삭제 함수 */
-  const deleteTodo = (targetId) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== targetId));
-    navigate("/todo");
-  };
-
-  /** 완료 여부 변환 함수 */
-  const changeTrueOrFalse = (targetId) => {
-    setTodos((prev) =>
-      prev.map((todo) => {
-        return todo.id === targetId
-          ? { ...todo, type: !todo.type, endDate: new Date() }
-          : todo;
-      })
-    );
-  };
-
   /** 할일 정보 페이지 UI */
   return (
-    <TodoDetailContainer>
-      <BackButton onClick={() => navigate("/todo")}>
+    <S.TodoDetailContainer>
+      <S.BackButton onClick={() => navigate("/todo")}>
         <FontAwesomeIcon icon={faX} />
-      </BackButton>
+      </S.BackButton>
 
-      <P>카테고리: {category}</P>
-      <H1>{content}</H1>
+      <ContentText $marginBottom="10px">카테고리: {category}</ContentText>
+      <TitleText $marginBottom="20px">{content}</TitleText>
 
-      <P>시작 시간: {new Date(date)?.toLocaleString("ko-KR", "UTC")}</P>
+      <ContentText $marginBottom="10px">
+        시작 시간: {new Date(date)?.toLocaleString("ko-KR", "UTC")}
+      </ContentText>
       {type && (
-        <P>종료 시간: {new Date(endDate).toLocaleString("ko-KR", "UTC")}</P>
+        <ContentText $marginBottom="20px">
+          종료 시간: {new Date(endDate).toLocaleString("ko-KR", "UTC")}
+        </ContentText>
       )}
 
       <ButtonBox>
         <Button
           $bgColor="#F95454"
           $hoverBgColor="#f43232"
-          onClick={() => deleteTodo(id)}
+          onClick={() => {
+            deleteTodo(id);
+            navigate(-1);
+          }}
         >
           삭제
         </Button>
@@ -74,49 +71,8 @@ const TodoDetail = ({ todos, setTodos }) => {
         </Button>
       </ButtonBox>
       <ToastContainer />
-    </TodoDetailContainer>
+    </S.TodoDetailContainer>
   );
 };
 
 export default TodoDetail;
-
-const TodoDetailContainer = styled.div`
-  width: 600px;
-  min-height: 450px;
-  background-color: white;
-  border-radius: 1rem;
-  margin-top: 10px;
-  position: absolute;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: 2rem;
-`;
-
-const BackButton = styled.button`
-  background-color: transparent;
-  border: none;
-  font-size: 20px;
-  color: #121212;
-  cursor: pointer;
-
-  position: absolute;
-  top: 20px;
-  right: 20px;
-
-  &:hover {
-    color: #7e7e7e;
-  }
-`;
-
-const H1 = styled.h1`
-  margin-bottom: 10px;
-  font-size: 24px;
-`;
-
-const P = styled.p`
-  margin-bottom: 10px;
-  font-size: 1rem;
-`;

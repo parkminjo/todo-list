@@ -1,14 +1,16 @@
-import React, { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
-import { Button } from "../styled-components/global/CommonStyle";
 import { TodoFormStyle as S } from "../styled-components/general/TodoFormStyle";
+import { Button } from "../styled-components/global/CommonStyle";
+import { TodoContext } from "../context/TodoContext";
 
-const TodoForm = ({ setTodos }) => {
+const TodoForm = () => {
   const [searchParams] = useSearchParams();
   const queryId = parseInt(searchParams.get("id"));
-  const navigate = useNavigate();
+
+  const { handleAddUpdate } = useContext(TodoContext);
 
   /** 사용자 입력값 state */
   const [userInput, setUserInput] = useState({
@@ -21,49 +23,24 @@ const TodoForm = ({ setTodos }) => {
     setUserInput({ ...userInput, [id]: value });
   };
 
-  /** 할 일 추가 or 수정 함수 */
-  const handleAddUpdate = (e) => {
-    e.preventDefault();
-
-    if (userInput.category === "" || userInput.content === "") {
-      toast.error("값을 모두 입력해주세요");
-      return;
-    }
-    if (!queryId) {
-      setTodos((prev) => [
-        ...prev,
-        {
-          ...userInput,
-          id: new Date().getTime(),
-          type: false,
-          date: new Date(),
-        },
-      ]);
-    } else {
-      setTodos((prev) =>
-        prev.map((todo) => {
-          return todo.id === queryId
-            ? {
-                ...todo,
-                ...userInput,
-                type: todo.hasOwnProperty("type") ? todo.type : false,
-              }
-            : todo;
-        })
-      );
-      navigate("/");
-    }
-
-    setUserInput({
-      category: "",
-      content: "",
-    });
-  };
-
   /** 입력창 UI */
   return (
     <S.TodoInputContainer>
-      <S.Form onSubmit={handleAddUpdate}>
+      <S.Form
+        onSubmit={(e) => {
+          e.preventDefault();
+
+          if (userInput.category === "" || userInput.content === "") {
+            toast.error("값을 모두 입력해주세요");
+            return;
+          }
+          handleAddUpdate(userInput, queryId);
+          setUserInput({
+            category: "",
+            content: "",
+          });
+        }}
+      >
         <label htmlFor="category">카테고리</label>
         <S.Category
           name="category"
