@@ -7,9 +7,6 @@ import { Button } from "../styled-components/global/CommonStyle";
 import { TodoContext } from "../context/TodoContext";
 
 const TodoForm = () => {
-  const [searchParams] = useSearchParams();
-  const queryId = parseInt(searchParams.get("id"));
-
   const { handleAddUpdate } = useContext(TodoContext);
 
   /** 사용자 입력값 state */
@@ -34,7 +31,7 @@ const TodoForm = () => {
             toast.error("값을 모두 입력해주세요");
             return;
           }
-          handleAddUpdate(userInput, queryId);
+          handleAddUpdate(userInput);
           setUserInput({
             category: "",
             content: "",
@@ -65,7 +62,7 @@ const TodoForm = () => {
         />
 
         <Button $bgColor="#3182f6" $hoverBgColor="#0069fc">
-          {queryId ? "수정" : "추가"}
+          추가
         </Button>
       </S.Form>
       <ToastContainer autoClose={1000} />

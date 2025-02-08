@@ -14,31 +14,16 @@ export const TodoProvider = ({ children }) => {
   }, [todos]);
 
   /** 할 일 추가 or 수정 함수 */
-  const handleAddUpdate = (userInput, queryId) => {
-    if (!queryId) {
-      setTodos((prev) => [
-        ...prev,
-        {
-          ...userInput,
-          id: new Date().getTime(),
-          type: false,
-          date: new Date(),
-        },
-      ]);
-    } else {
-      setTodos((prev) =>
-        prev.map((todo) => {
-          return todo.id === queryId
-            ? {
-                ...todo,
-                ...userInput,
-                type: todo.hasOwnProperty("type") ? todo.type : false,
-              }
-            : todo;
-        })
-      );
-      navigate("/");
-    }
+  const handleAddUpdate = (userInput) => {
+    setTodos((prev) => [
+      ...prev,
+      {
+        ...userInput,
+        id: new Date().getTime(),
+        type: false,
+        date: new Date(),
+      },
+    ]);
   };
 
   /** todo 삭제 함수 */
