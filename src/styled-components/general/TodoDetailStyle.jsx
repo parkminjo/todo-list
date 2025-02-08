@@ -15,20 +15,4 @@ export const TodoDetailStyle = {
     justify-content: center;
     padding-top: 2rem;
   `,
-
-  BackButton: styled.button`
-    background-color: transparent;
-    border: none;
-    font-size: 20px;
-    color: #121212;
-    cursor: pointer;
-
-    position: absolute;
-    top: 20px;
-    right: 20px;
-
-    &:hover {
-      color: #7e7e7e;
-    }
-  `,
 };

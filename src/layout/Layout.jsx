@@ -22,8 +22,7 @@ const Nav = () => {
       <TitleText $fontSize="30px" $fontWeight="600">
         DODO
       </TitleText>
-      <S.NavButton onClick={() => navigate("/")}>Todo 입력</S.NavButton>
-      <S.NavButton onClick={() => navigate("/todo")}>TodoList</S.NavButton>
+      <S.NavButton onClick={() => navigate("/")}>TodoList</S.NavButton>
     </S.NavContainer>
   );
 };

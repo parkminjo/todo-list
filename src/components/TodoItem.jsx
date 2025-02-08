@@ -1,9 +1,11 @@
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changeBoolean, deleteTodo } from "../redux/TodosSlice";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 import {
   ButtonBox,
@@ -28,8 +30,7 @@ const TodoItem = ({ todos }) => {
               navigate(`/detail?id=${todo.id}`);
             }}
           >
-            <ContentText $fontWeight="500">{todo.content}</ContentText>
-            <ButtonBox $gap="0">
+            <ButtonBox>
               <S.CheckBoxInput
                 type="checkbox"
                 checked={todo.type}
@@ -37,10 +38,19 @@ const TodoItem = ({ todos }) => {
                   dispatch(changeBoolean(todo.id));
                 }}
               />
+              <ContentText $fontWeight="500">{todo.content}</ContentText>
+            </ButtonBox>
 
-              <S.DeleteButton onClick={() => dispatch(deleteTodo(todo.id))}>
+            <ButtonBox $gap="0">
+              <S.Button
+                $color="#5297FB"
+                onClick={() => navigate(`/todo-input?id=${todo.id}`)}
+              >
+                <FontAwesomeIcon icon={faPen} />
+              </S.Button>
+              <S.Button onClick={() => dispatch(deleteTodo(todo.id))}>
                 <FontAwesomeIcon icon={faTrash} />
-              </S.DeleteButton>
+              </S.Button>
             </ButtonBox>
           </S.TodoCardBox>
         );

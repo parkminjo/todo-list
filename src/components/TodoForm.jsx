@@ -1,13 +1,21 @@
 import React, { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../redux/TodosSlice";
+import { addTodo, updateTodo } from "../redux/TodosSlice";
+
+import { toast, ToastContainer } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX } from "@fortawesome/free-solid-svg-icons";
 
 import { TodoFormStyle as S } from "../styled-components/general/TodoFormStyle";
-import { Button } from "../styled-components/global/CommonStyle";
+import { BackButton, Button } from "../styled-components/global/CommonStyle";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const TodoForm = () => {
+  const [searchParams] = useSearchParams();
+  const queryId = searchParams.get("id");
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   /** 사용자 입력값 state */
   const [userInput, setUserInput] = useState({
@@ -34,14 +42,23 @@ const TodoForm = () => {
     }
 
     /** 할 일 추가 */
-    dispatch(
-      addTodo({
-        ...userInput,
-        id: new Date().getTime(),
-        date: new Date().toISOString(),
-        type: false,
-      })
-    );
+    if (!queryId) {
+      dispatch(
+        addTodo({
+          ...userInput,
+          id: new Date().getTime(),
+          date: new Date().toISOString(),
+          type: false,
+        })
+      );
+    } else {
+      dispatch(
+        updateTodo({
+          queryId,
+          userInput,
+        })
+      );
+    }
 
     setUserInput({
       category: "select",
@@ -52,9 +69,13 @@ const TodoForm = () => {
   /** 입력창 UI */
   return (
     <S.TodoInputContainer>
+      <BackButton>
+        <FontAwesomeIcon icon={faX} onClick={() => navigate(-1)} />
+      </BackButton>
       <S.Form onSubmit={handleSubmit}>
         <label htmlFor="category">카테고리</label>
-        <S.Category
+        <S.ContentInput
+          as="select"
           name="category"
           id="category"
           value={userInput.category}
@@ -66,7 +87,7 @@ const TodoForm = () => {
           <option value="공부">공부</option>
           <option value="취미">취미</option>
           <option value="기타">기타</option>
-        </S.Category>
+        </S.ContentInput>
 
         <label htmlFor="content">할 일</label>
         <S.ContentInput
@@ -76,8 +97,12 @@ const TodoForm = () => {
           onChange={handleChange}
         />
 
-        <Button $bgColor="#3182f6" $hoverBgColor="#0069fc">
-          추가
+        <Button
+          $bgColor="#3182f6"
+          $hoverBgColor="#0069fc"
+          onClick={() => navigate(-1)}
+        >
+          {queryId ? "수정" : "추가"}
         </Button>
       </S.Form>
       <ToastContainer autoClose={1000} />

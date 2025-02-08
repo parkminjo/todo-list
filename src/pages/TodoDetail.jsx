@@ -1,11 +1,12 @@
 import React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer } from "react-toastify";
 
 import {
+  BackButton,
   Button,
   ButtonBox,
   ContentText,
@@ -30,9 +31,9 @@ const TodoDetail = () => {
   /** 할일 정보 페이지 UI */
   return (
     <S.TodoDetailContainer>
-      <S.BackButton onClick={() => navigate(-1)}>
+      <BackButton onClick={() => navigate(-1)}>
         <FontAwesomeIcon icon={faX} />
-      </S.BackButton>
+      </BackButton>
 
       <ContentText $marginBottom="10px">{category}</ContentText>
       <TitleText $marginBottom="20px">{content}</TitleText>

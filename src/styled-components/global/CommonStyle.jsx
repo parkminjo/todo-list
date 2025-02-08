@@ -26,8 +26,24 @@ export const TitleText = styled.h1`
   margin-bottom: ${(props) => props.$marginBottom || 0};
 `;
 
-export const ContentText = styled.p`
+export const ContentText = styled.span`
   font-size: ${(props) => props.$fontSize || "16px"};
   font-weight: ${(props) => props.$fontWeight || 400};
   margin-bottom: ${(props) => props.$marginBottom || 0};
+`;
+
+export const BackButton = styled.button`
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  color: #121212;
+  cursor: pointer;
+
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  &:hover {
+    color: #7e7e7e;
+  }
 `;

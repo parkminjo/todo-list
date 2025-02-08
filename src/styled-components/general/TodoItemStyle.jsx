@@ -9,6 +9,7 @@ export const TodoItemStyle = {
     padding: 5px 1rem;
     margin-bottom: 1rem;
     background-color: #f3f4f7;
+    cursor: pointer;
 
     display: flex;
     justify-content: space-between;
@@ -23,16 +24,18 @@ export const TodoItemStyle = {
     width: 16px;
     border: 1px solid #c5cdd5;
     background-color: transparent;
+    cursor: pointer;
   `,
 
-  DeleteButton: styled.button`
+  Button: styled.button`
     background-color: transparent;
     border: none;
     font-size: 16px;
     color: #777777;
+    cursor: pointer;
 
     &:hover {
-      color: #f85453;
+      color: ${(props) => props.$color || "#f85453"};
     }
   `,
 };
