@@ -35,7 +35,7 @@ const TodoDetail = () => {
   /** 할일 정보 페이지 UI */
   return (
     <S.TodoDetailContainer>
-      <S.BackButton onClick={() => navigate("/todo")}>
+      <S.BackButton onClick={() => navigate(-1)}>
         <FontAwesomeIcon icon={faX} />
       </S.BackButton>
 

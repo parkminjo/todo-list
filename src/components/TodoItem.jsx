@@ -22,7 +22,6 @@ const TodoItem = ({ todos }) => {
         return (
           <S.TodoCardBox
             key={todo.id}
-            onDoubleClick={() => navigate(`/?id=${todo.id}`)}
             onClick={(e) => {
               if (e.currentTarget !== e.target) return;
               navigate(`/detail?id=${todo.id}`);
