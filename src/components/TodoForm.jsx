@@ -56,7 +56,7 @@ const TodoForm = () => {
         ...userInput,
         id: new Date().getTime(),
         date: new Date().toISOString(),
-        type: false,
+        isType: false,
       })
     );
   };
