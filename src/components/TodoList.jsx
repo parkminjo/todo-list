@@ -10,8 +10,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 const TodoList = () => {
   const todos = useSelector((state) => state.todos);
 
-  const incompleteTodos = todos.filter((todo) => todo.type === false);
-  const completeTodos = todos.filter((todo) => todo.type);
+  const incompleteTodos = todos.filter((todo) => todo.isType === false);
+  const completeTodos = todos.filter((todo) => todo.isType);
 
   /** 할 일 리스트 UI */
   return (

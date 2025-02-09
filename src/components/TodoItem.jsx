@@ -33,7 +33,7 @@ const TodoItem = ({ todos }) => {
             <ButtonBox>
               <S.CheckBoxInput
                 type="checkbox"
-                checked={todo.type}
+                checked={todo.isType}
                 onChange={() => {
                   dispatch(changeBoolean(todo.id));
                 }}

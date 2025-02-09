@@ -25,7 +25,7 @@ const TodoDetail = () => {
   const [searchParams] = useSearchParams();
   const queryId = parseInt(searchParams.get("id"));
 
-  const { id, category, content, date, endDate, type } =
+  const { id, category, content, date, endDate, isType } =
     todos.find((todo) => todo?.id === queryId) || {};
 
   /** 할일 정보 페이지 UI */
@@ -41,7 +41,7 @@ const TodoDetail = () => {
       <ContentText $marginBottom="10px">
         시작 시간: {new Date(date)?.toLocaleString("ko-KR", "UTC")}
       </ContentText>
-      {type && (
+      {isType && (
         <ContentText $marginBottom="20px">
           종료 시간: {new Date(endDate).toLocaleString("ko-KR", "UTC")}
         </ContentText>
@@ -63,7 +63,7 @@ const TodoDetail = () => {
           $hoverBgColor="#e8b80a"
           onClick={() => dispatch(changeBoolean(id))}
         >
-          {type ? "취소" : "완료"}
+          {isType ? "취소" : "완료"}
         </Button>
       </ButtonBox>
       <ToastContainer />

@@ -21,7 +21,7 @@ const TodosSlice = createSlice({
           ? {
               ...todo,
               ...userInput,
-              type: todo.type ?? false,
+              isType: todo.isType ?? false,
               date: new Date().toISOString(),
             }
           : todo
@@ -32,7 +32,7 @@ const TodosSlice = createSlice({
     changeBoolean: (state, action) => {
       const toggledTodos = state.map((todo) => {
         return todo.id === action.payload
-          ? { ...todo, type: !todo.type, endDate: new Date().toISOString() }
+          ? { ...todo, isType: !todo.isType, endDate: new Date().toISOString() }
           : todo;
       });
 
