@@ -42,6 +42,10 @@ const TodoForm = () => {
 
     !queryId ? handleAddTodo() : handleUpdateTodo();
 
+    reset();
+  };
+
+  const reset = () => {
     dispatch(
       setUserInput({
         category: "select",
@@ -75,7 +79,12 @@ const TodoForm = () => {
   /** 입력창 UI */
   return (
     <S.TodoInputContainer>
-      <BackButton onClick={() => navigate(-1)}>
+      <BackButton
+        onClick={() => {
+          navigate(-1);
+          reset();
+        }}
+      >
         <FontAwesomeIcon icon={faX} />
       </BackButton>
       <S.Form onSubmit={handleSubmit}>

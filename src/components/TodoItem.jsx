@@ -43,6 +43,7 @@ const TodoItem = ({ todos }) => {
 
             <ButtonBox $gap="0">
               <S.Button
+                name="update"
                 $color="#5297FB"
                 onClick={() => {
                   navigate(`/todo-input?id=${todo.id}`);
@@ -56,7 +57,10 @@ const TodoItem = ({ todos }) => {
               >
                 <FontAwesomeIcon icon={faPen} />
               </S.Button>
-              <S.Button onClick={() => dispatch(deleteTodo(todo.id))}>
+              <S.Button
+                name="delete"
+                onClick={() => dispatch(deleteTodo(todo.id))}
+              >
                 <FontAwesomeIcon icon={faTrash} />
               </S.Button>
             </ButtonBox>
