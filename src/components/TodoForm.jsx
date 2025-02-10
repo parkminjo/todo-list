@@ -1,31 +1,30 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { addTodo, updateTodo } from "../redux/TodosSlice";
 
-import { toast, ToastContainer } from "react-toastify";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { toast, ToastContainer } from "react-toastify";
 
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { setUserInput } from "../redux/InputSlice";
 import { TodoFormStyle as S } from "../styled-components/general/TodoFormStyle";
 import { BackButton, Button } from "../styled-components/global/CommonStyle";
-import { useNavigate, useSearchParams } from "react-router-dom";
 
 const TodoForm = () => {
+  /** 사용자 입력값 */
+  const userInput = useSelector((state) => state.input);
+
   const [searchParams] = useSearchParams();
   const queryId = parseInt(searchParams.get("id"));
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  /** 사용자 입력값 state */
-  const [userInput, setUserInput] = useState({
-    category: "select",
-    content: "",
-  });
-
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setUserInput({ ...userInput, [id]: value });
+
+    dispatch(setUserInput({ ...userInput, [id]: value }));
   };
 
   const handleSubmit = (e) => {
@@ -43,10 +42,12 @@ const TodoForm = () => {
 
     !queryId ? handleAddTodo() : handleUpdateTodo();
 
-    setUserInput({
-      category: "select",
-      content: "",
-    });
+    dispatch(
+      setUserInput({
+        category: "select",
+        content: "",
+      })
+    );
   };
 
   /** 할 일 추가 */
@@ -74,8 +75,8 @@ const TodoForm = () => {
   /** 입력창 UI */
   return (
     <S.TodoInputContainer>
-      <BackButton>
-        <FontAwesomeIcon icon={faX} onClick={() => navigate("/")} />
+      <BackButton onClick={() => navigate(-1)}>
+        <FontAwesomeIcon icon={faX} />
       </BackButton>
       <S.Form onSubmit={handleSubmit}>
         <label htmlFor="category">카테고리</label>

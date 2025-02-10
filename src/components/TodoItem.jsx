@@ -1,17 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { changeBoolean, deleteTodo } from "../redux/TodosSlice";
 
+import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
 
+import { setUserInput } from "../redux/InputSlice";
+import { TodoItemStyle as S } from "../styled-components/general/TodoItemStyle";
 import {
   ButtonBox,
   ContentText,
 } from "../styled-components/global/CommonStyle";
-import { TodoItemStyle as S } from "../styled-components/general/TodoItemStyle";
 
 const TodoItem = ({ todos }) => {
   const navigate = useNavigate();
@@ -44,7 +44,15 @@ const TodoItem = ({ todos }) => {
             <ButtonBox $gap="0">
               <S.Button
                 $color="#5297FB"
-                onClick={() => navigate(`/todo-input?id=${todo.id}`)}
+                onClick={() => {
+                  navigate(`/todo-input?id=${todo.id}`);
+                  dispatch(
+                    setUserInput({
+                      category: todo.category,
+                      content: todo.content,
+                    })
+                  );
+                }}
               >
                 <FontAwesomeIcon icon={faPen} />
               </S.Button>
