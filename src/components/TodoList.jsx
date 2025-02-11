@@ -25,6 +25,7 @@ const TodoList = () => {
             <FontAwesomeIcon icon={faPlus} />
           </S.AddButton>
         </S.Header>
+
         <TodoItem todos={incompleteTodos} />
       </S.TodoListContainer>
 
@@ -34,6 +35,7 @@ const TodoList = () => {
             COMPLETE ({completeTodos.length})
           </TitleText>
         </S.Header>
+
         <TodoItem todos={completeTodos} />
       </S.TodoListContainer>
     </S.Container>

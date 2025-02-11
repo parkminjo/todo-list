@@ -9,11 +9,7 @@ const App = () => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
-  return (
-    <>
-      <Router />
-    </>
-  );
+  return <Router />;
 };
 
 export default App;

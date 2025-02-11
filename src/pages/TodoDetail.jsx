@@ -28,6 +28,11 @@ const TodoDetail = () => {
   const { id, category, content, date, endDate, isType } =
     todos.find((todo) => todo?.id === queryId) || {};
 
+  const handleDelete = () => {
+    dispatch(deleteTodo(id));
+    navigate(-1);
+  };
+
   /** 할일 정보 페이지 UI */
   return (
     <S.TodoDetailContainer>
@@ -51,10 +56,7 @@ const TodoDetail = () => {
         <Button
           $bgColor="#F95454"
           $hoverBgColor="#f43232"
-          onClick={() => {
-            dispatch(deleteTodo(id));
-            navigate(-1);
-          }}
+          onClick={handleDelete}
         >
           삭제
         </Button>

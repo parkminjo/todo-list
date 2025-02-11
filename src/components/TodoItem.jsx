@@ -17,6 +17,21 @@ const TodoItem = ({ todos }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const moveToDetailPage = (e, id) => {
+    if (e.currentTarget !== e.target) return;
+    navigate(`/detail?id=${id}`);
+  };
+
+  const handleUpdate = (id) => {
+    navigate(`/todo-input?id=${id}`);
+    dispatch(
+      setUserInput({
+        category: todo.category,
+        content: todo.content,
+      })
+    );
+  };
+
   /** 할 일 카드 UI */
   return (
     <>
@@ -24,19 +39,13 @@ const TodoItem = ({ todos }) => {
         return (
           <S.TodoCardBox
             key={todo.id}
-            onDoubleClick={() => navigate(`/?id=${todo.id}`)}
-            onClick={(e) => {
-              if (e.currentTarget !== e.target) return;
-              navigate(`/detail?id=${todo.id}`);
-            }}
+            onClick={(e) => moveToDetailPage(e, todo.id)}
           >
             <ButtonBox>
               <S.CheckBoxInput
                 type="checkbox"
                 checked={todo.isType}
-                onChange={() => {
-                  dispatch(changeBoolean(todo.id));
-                }}
+                onChange={() => dispatch(changeBoolean(todo.id))}
               />
               <ContentText $fontWeight="500">{todo.content}</ContentText>
             </ButtonBox>
@@ -45,15 +54,7 @@ const TodoItem = ({ todos }) => {
               <S.Button
                 name="update"
                 $color="#5297FB"
-                onClick={() => {
-                  navigate(`/todo-input?id=${todo.id}`);
-                  dispatch(
-                    setUserInput({
-                      category: todo.category,
-                      content: todo.content,
-                    })
-                  );
-                }}
+                onClick={() => handleUpdate(todo.id)}
               >
                 <FontAwesomeIcon icon={faPen} />
               </S.Button>
